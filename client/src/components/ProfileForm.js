@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ExperienceFormModal from './ExperienceFormModal';
+import EducationFormModal from './EducationFormModal';
 import { FaTrash } from 'react-icons/fa';
 
 const monthToNumber = (month) => {
@@ -19,6 +20,9 @@ const ProfileForm = () => {
 
   const [experiences, setExperiences] = useState([]);
   const [showModal, setShowModal] = useState(false);
+
+  const [educations, setEducations] = useState([]);
+  const [showEduModal, setShowEduModal] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +47,6 @@ const ProfileForm = () => {
         <input name="name" placeholder="Name" value={profile.name} onChange={handleChange} /><br />
         <input name="email" placeholder="Email" value={profile.email} onChange={handleChange} /><br />
 
-        {/* ✅ Clean, compact skills layout */}
         <div style={{ marginTop: '20px' }}>
           <strong>Skills:</strong>
 
@@ -79,7 +82,6 @@ const ProfileForm = () => {
           </div>
         </div>
 
-        {/* ✅ Experiences section */}
         <div style={{ marginTop: '20px' }}>
           <h3>Experiences</h3>
           <button type="button" onClick={() => setShowModal(true)}>Add Experience</button>
@@ -113,9 +115,29 @@ const ProfileForm = () => {
             ))}
           </ul>
         </div>
+        <div style={{ marginTop: '20px' }}>
+            <h3>Education</h3>
+            <button type="button" onClick={() => setShowEduModal(true)}>Add Education</button>
+            <ul>
+                {educations.map((edu, index) => (
+                    <li key={index} style={{ marginBottom: '10px', position: 'relative' }}>
+                    <strong>{edu.degree}</strong> in {edu.fieldOfStudy} at {edu.school} ({edu.startMonth}/{edu.startYear} - {edu.currentlyStudying ? 'Present' : `${edu.endMonth}/${edu.endYear}`})<br />
+                    <em>Grade: {edu.grade}</em>
+                    <p>{edu.description}</p>
+                    <button
+                        type="button"
+                        onClick={() => setEducations(educations.filter((_, i) => i !== index))}
+                        style={{ position: 'absolute', right: 0, top: 0, background: 'transparent', border: 'none', cursor: 'pointer', color: 'red' }}
+                        title="Delete education"
+                    >
+                        <FaTrash />
+                    </button>
+                    </li>
+                ))}
+            </ul>
+        </div>
       </form>
 
-      {/* ✅ Experience modal */}
       {showModal && (
         <ExperienceFormModal
           onClose={() => setShowModal(false)}
@@ -143,6 +165,30 @@ const ProfileForm = () => {
 
             setExperiences(updated);
             setShowModal(false);
+          }}
+        />
+      )}
+      {showEduModal && (
+        <EducationFormModal
+          onClose={() => setShowEduModal(false)}
+          onSave={(newEdu) => {
+            if (newEdu.currentlyStudying && educations.some(e => e.currentlyStudying)) {
+              alert("Only one education can be marked as 'currently studying'.");
+              return;
+            }
+            const updated = [...educations, newEdu];
+            updated.sort((a, b) => {
+              if (a.currentlyStudying) return -1;
+              if (b.currentlyStudying) return 1;
+              const aYear = parseInt(a.endYear || 0);
+              const bYear = parseInt(b.endYear || 0);
+              const aMonth = monthToNumber(a.endMonth);
+              const bMonth = monthToNumber(b.endMonth);
+              if (bYear !== aYear) return bYear - aYear;
+              return bMonth - aMonth;
+            });
+            setEducations(updated);
+            setShowEduModal(false);
           }}
         />
       )}
