@@ -44,8 +44,14 @@ const ProfileForm = () => {
   };
 
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', gap: '40px', alignItems: 'flex-start' }}>
-      {/* Left side: Main form */}
+    <div style={{
+      maxWidth: '1000px',
+      margin: '0 auto',
+      display: 'flex',
+      gap: '40px',
+      alignItems: 'flex-start'
+    }}>
+      {/* Left Side - Main Form */}
       <div style={{ flex: 1 }}>
         <form>
           <input name="name" placeholder="Name" value={profile.name} onChange={handleChange} /><br />
@@ -147,16 +153,16 @@ const ProfileForm = () => {
         </form>
       </div>
 
-      {/* Right side: LinkedIn-style Links section */}
+      {/* Right Side - LinkedIn-style Sidebar */}
       <div style={{
         width: '250px',
         border: '1px solid #ddd',
         borderRadius: '8px',
         padding: '16px',
-        backgroundColor: '#f8f9fa',
+        backgroundColor: 'white',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
       }}>
-        <h4 style={{ marginBottom: '16px' }}>Public Profile & URL</h4>
+        <h4 style={{ marginBottom: '16px' }}>Links</h4>
 
         <div style={{ marginBottom: '12px' }}>
           <label htmlFor="linkedin" style={{ fontWeight: 'bold', fontSize: '14px' }}>LinkedIn:</label>
@@ -178,7 +184,7 @@ const ProfileForm = () => {
           />
         </div>
 
-        <div>
+        <div style={{ marginBottom: '24px' }}>
           <label htmlFor="github" style={{ fontWeight: 'bold', fontSize: '14px' }}>GitHub:</label>
           <input
             type="text"
@@ -196,6 +202,24 @@ const ProfileForm = () => {
               borderRadius: '4px'
             }}
           />
+        </div>
+
+        {/* Followers Section (blank placeholder) */}
+        <div style={{ borderTop: '1px solid #ccc', paddingTop: '16px' }}>
+          <h4 style={{ fontSize: '16px', marginBottom: '0' }}>Followers</h4>
+          <div style={{
+            minHeight: '100px',
+            backgroundColor: '#fff',
+            marginTop: '10px',
+            border: '1px dashed #ccc',
+            borderRadius: '4px',
+            padding: '10px',
+            textAlign: 'center',
+            color: '#999',
+            fontStyle: 'italic'
+          }}>
+            (Coming soon)
+          </div>
         </div>
       </div>
 
