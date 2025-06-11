@@ -42,21 +42,23 @@ const ProfileForm = () => {
       <form>
         <input name="name" placeholder="Name" value={profile.name} onChange={handleChange} /><br />
         <input name="email" placeholder="Email" value={profile.email} onChange={handleChange} /><br />
-        <textarea name="experience" placeholder="Experience" value={profile.experience} onChange={handleChange} /><br />
 
-        <div>
-          <input
-            type="text"
-            placeholder="Enter a skill"
-            value={skillInput}
-            onChange={(e) => setSkillInput(e.target.value)}
-          />
-          <button type="button" onClick={handleAddSkill}>Add Skill</button>
-        </div>
-
-        <div style={{ marginTop: '10px' }}>
+        {/* ✅ Clean, compact skills layout */}
+        <div style={{ marginTop: '20px' }}>
           <strong>Skills:</strong>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '5px' }}>
+
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '8px' }}>
+            <input
+              type="text"
+              placeholder="Enter a skill"
+              value={skillInput}
+              onChange={(e) => setSkillInput(e.target.value)}
+              style={{ width: '200px', padding: '6px' }}
+            />
+            <button type="button" onClick={handleAddSkill}>Add Skill</button>
+          </div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '10px' }}>
             {skills.map((skill, index) => (
               <span
                 key={index}
@@ -77,6 +79,7 @@ const ProfileForm = () => {
           </div>
         </div>
 
+        {/* ✅ Experiences section */}
         <div style={{ marginTop: '20px' }}>
           <h3>Experiences</h3>
           <button type="button" onClick={() => setShowModal(true)}>Add Experience</button>
@@ -112,6 +115,7 @@ const ProfileForm = () => {
         </div>
       </form>
 
+      {/* ✅ Experience modal */}
       {showModal && (
         <ExperienceFormModal
           onClose={() => setShowModal(false)}
@@ -123,7 +127,7 @@ const ProfileForm = () => {
 
             const updated = [...experiences, newExp];
 
-            // Sort: current first, then descending end date
+            // Sort: current job first, then most recent previous
             updated.sort((a, b) => {
               if (a.current) return -1;
               if (b.current) return 1;
