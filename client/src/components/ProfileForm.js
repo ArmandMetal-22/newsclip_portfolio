@@ -13,6 +13,8 @@ const ProfileForm = () => {
     name: '',
     email: '',
     experience: '',
+    linkedin: '',
+    github: '',
   });
 
   const [skills, setSkills] = useState([]);
@@ -42,132 +44,187 @@ const ProfileForm = () => {
   };
 
   return (
-    <>
-      <form>
-        <input name="name" placeholder="Name" value={profile.name} onChange={handleChange} /><br />
-        <input name="email" placeholder="Email" value={profile.email} onChange={handleChange} /><br />
+    <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', gap: '40px', alignItems: 'flex-start' }}>
+      {/* Left side: Main form */}
+      <div style={{ flex: 1 }}>
+        <form>
+          <input name="name" placeholder="Name" value={profile.name} onChange={handleChange} /><br />
+          <input name="email" placeholder="Email" value={profile.email} onChange={handleChange} /><br />
 
-        <div style={{ marginTop: '20px' }}>
-          <strong>Skills:</strong>
-
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '8px' }}>
-            <input
-              type="text"
-              placeholder="Enter a skill"
-              value={skillInput}
-              onChange={(e) => setSkillInput(e.target.value)}
-              style={{ width: '200px', padding: '6px' }}
-            />
-            <button type="button" onClick={handleAddSkill}>Add Skill</button>
-          </div>
-
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '10px' }}>
-            {skills.map((skill, index) => (
-              <span
-                key={index}
-                onClick={() => handleRemoveSkill(index)}
-                style={{
-                  cursor: 'pointer',
-                  backgroundColor: '#007bff',
-                  color: 'white',
-                  padding: '5px 10px',
-                  borderRadius: '20px',
-                  fontSize: '14px'
-                }}
-                title="Click to remove"
-              >
-                {skill} ×
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ marginTop: '20px' }}>
-          <h3>Experiences</h3>
-          <button type="button" onClick={() => setShowModal(true)}>Add Experience</button>
-          <ul>
-            {experiences.map((exp, index) => (
-              <li key={index} style={{ marginBottom: '10px', position: 'relative' }}>
-                <strong>{exp.title}</strong> at {exp.company} ({exp.startMonth}/{exp.startYear} - {exp.current ? 'Present' : `${exp.endMonth}/${exp.endYear}`})
-                <br />
-                <em>{exp.employmentType} • {exp.locationType} • {exp.location}</em>
-                <p>{exp.description}</p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const updated = experiences.filter((_, i) => i !== index);
-                    setExperiences(updated);
-                  }}
+          <div style={{ marginTop: '20px' }}>
+            <strong>Skills:</strong>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '8px' }}>
+              <input
+                type="text"
+                placeholder="Enter a skill"
+                value={skillInput}
+                onChange={(e) => setSkillInput(e.target.value)}
+                style={{ width: '200px', padding: '6px' }}
+              />
+              <button type="button" onClick={handleAddSkill}>Add Skill</button>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '10px' }}>
+              {skills.map((skill, index) => (
+                <span
+                  key={index}
+                  onClick={() => handleRemoveSkill(index)}
                   style={{
-                    position: 'absolute',
-                    right: 0,
-                    top: 0,
-                    background: 'transparent',
-                    border: 'none',
                     cursor: 'pointer',
-                    color: 'red'
+                    backgroundColor: '#007bff',
+                    color: 'white',
+                    padding: '5px 10px',
+                    borderRadius: '20px',
+                    fontSize: '14px'
                   }}
-                  title="Delete experience"
+                  title="Click to remove"
                 >
-                  <FaTrash />
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div style={{ marginTop: '20px' }}>
+                  {skill} ×
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
+            <h3>Experiences</h3>
+            <button type="button" onClick={() => setShowModal(true)}>Add Experience</button>
+            <ul>
+              {experiences.map((exp, index) => (
+                <li key={index} style={{ marginBottom: '10px', position: 'relative' }}>
+                  <strong>{exp.title}</strong> at {exp.company} ({exp.startMonth}/{exp.startYear} - {exp.current ? 'Present' : `${exp.endMonth}/${exp.endYear}`})
+                  <br />
+                  <em>{exp.employmentType} • {exp.locationType} • {exp.location}</em>
+                  <p>{exp.description}</p>
+                  <button
+                    type="button"
+                    onClick={() => setExperiences(experiences.filter((_, i) => i !== index))}
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      color: 'red'
+                    }}
+                    title="Delete experience"
+                  >
+                    <FaTrash />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
             <h3>Education</h3>
             <button type="button" onClick={() => setShowEduModal(true)}>Add Education</button>
             <ul>
-                {educations.map((edu, index) => (
-                    <li key={index} style={{ marginBottom: '10px', position: 'relative' }}>
-                    <strong>{edu.degree}</strong> in {edu.fieldOfStudy} at {edu.school} ({edu.startMonth}/{edu.startYear} - {edu.currentlyStudying ? 'Present' : `${edu.endMonth}/${edu.endYear}`})<br />
-                    <em>Grade: {edu.grade}</em>
-                    <p>{edu.description}</p>
-                    <button
-                        type="button"
-                        onClick={() => setEducations(educations.filter((_, i) => i !== index))}
-                        style={{ position: 'absolute', right: 0, top: 0, background: 'transparent', border: 'none', cursor: 'pointer', color: 'red' }}
-                        title="Delete education"
-                    >
-                        <FaTrash />
-                    </button>
-                    </li>
-                ))}
+              {educations.map((edu, index) => (
+                <li key={index} style={{ marginBottom: '10px', position: 'relative' }}>
+                  <strong>{edu.degree}</strong> in {edu.fieldOfStudy} at {edu.school} ({edu.startMonth}/{edu.startYear} - {edu.currentlyStudying ? 'Present' : `${edu.endMonth}/${edu.endYear}`})<br />
+                  <em>Grade: {edu.grade}</em>
+                  <p>{edu.description}</p>
+                  <button
+                    type="button"
+                    onClick={() => setEducations(educations.filter((_, i) => i !== index))}
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      color: 'red'
+                    }}
+                    title="Delete education"
+                  >
+                    <FaTrash />
+                  </button>
+                </li>
+              ))}
             </ul>
-        </div>
-      </form>
+          </div>
+        </form>
+      </div>
 
+      {/* Right side: LinkedIn-style Links section */}
+      <div style={{
+        width: '250px',
+        border: '1px solid #ddd',
+        borderRadius: '8px',
+        padding: '16px',
+        backgroundColor: '#f8f9fa',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
+      }}>
+        <h4 style={{ marginBottom: '16px' }}>Public Profile & URL</h4>
+
+        <div style={{ marginBottom: '12px' }}>
+          <label htmlFor="linkedin" style={{ fontWeight: 'bold', fontSize: '14px' }}>LinkedIn:</label>
+          <input
+            type="text"
+            id="linkedin"
+            name="linkedin"
+            placeholder="https://linkedin.com/in/..."
+            value={profile.linkedin}
+            onChange={handleChange}
+            style={{
+              width: '100%',
+              padding: '6px',
+              fontSize: '13px',
+              marginTop: '4px',
+              border: '1px solid #ccc',
+              borderRadius: '4px'
+            }}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="github" style={{ fontWeight: 'bold', fontSize: '14px' }}>GitHub:</label>
+          <input
+            type="text"
+            id="github"
+            name="github"
+            placeholder="https://github.com/..."
+            value={profile.github}
+            onChange={handleChange}
+            style={{
+              width: '100%',
+              padding: '6px',
+              fontSize: '13px',
+              marginTop: '4px',
+              border: '1px solid #ccc',
+              borderRadius: '4px'
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Modals */}
       {showModal && (
         <ExperienceFormModal
           onClose={() => setShowModal(false)}
           onSave={(newExp) => {
             if (newExp.current && experiences.some(exp => exp.current)) {
-              alert("Only one job can be marked as 'current'. Please update or remove the existing one.");
+              alert("Only one job can be marked as 'current'.");
               return;
             }
-
             const updated = [...experiences, newExp];
-
-            // Sort: current job first, then most recent previous
             updated.sort((a, b) => {
               if (a.current) return -1;
               if (b.current) return 1;
-
               const aYear = parseInt(a.endYear || 0);
               const bYear = parseInt(b.endYear || 0);
               const aMonth = monthToNumber(a.endMonth);
               const bMonth = monthToNumber(b.endMonth);
-
               if (bYear !== aYear) return bYear - aYear;
               return bMonth - aMonth;
             });
-
             setExperiences(updated);
             setShowModal(false);
           }}
         />
       )}
+
       {showEduModal && (
         <EducationFormModal
           onClose={() => setShowEduModal(false)}
@@ -192,7 +249,7 @@ const ProfileForm = () => {
           }}
         />
       )}
-    </>
+    </div>
   );
 };
 
