@@ -1,0 +1,27 @@
+# === Node.js (client) ===
+client/node_modules/
+client/dist/
+client/.env
+
+# === .NET (server) ===
+server/bin/
+server/obj/
+server/*.dll
+server/*.pdb
+server/*.exe
+server/*.cache
+server/*.nuget.cache
+
+# === SQL Project (optional for later) ===
+*.mdf
+*.ldf
+
+# === Visual Studio / VS Code ===
+.vscode/
+*.suo
+*.user
+*.sln.docstates
+
+# === macOS / Windows ===
+.DS_Store
+Thumbs.db
