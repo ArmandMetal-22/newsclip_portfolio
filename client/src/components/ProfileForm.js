@@ -26,6 +26,34 @@ const ProfileForm = () => {
   const [educations, setEducations] = useState([]);
   const [showEduModal, setShowEduModal] = useState(false);
 
+  const handleSave = async () => {
+    const fullProfile = {
+      ...profile,
+      skills,
+      experiences,
+      educations
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(fullProfile),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save profile.");
+      }
+
+      alert("Profile saved successfully!");
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      alert("Something went wrong.");
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfile({ ...profile, [name]: value });
@@ -150,6 +178,9 @@ const ProfileForm = () => {
               ))}
             </ul>
           </div>
+          <button type="button" onClick={handleSave} style={{ marginTop: '20px'}}>
+              Save Profile
+          </button>
         </form>
       </div>
 
