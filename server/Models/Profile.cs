@@ -8,6 +8,7 @@ namespace Server.Models
 
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; } 
         public string LinkedIn { get; set; }
         public string GitHub { get; set; }
 
