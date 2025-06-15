@@ -11,6 +11,10 @@ namespace Server.Models
         public string Password { get; set; } 
         public string LinkedIn { get; set; }
         public string GitHub { get; set; }
+        public string Headline { get; set; }
+        public string Location { get; set; }
+        public string Website { get; set; }
+        public string Phone { get; set; }
 
         public List<string> Skills { get; set; }
         public List<Experience> Experiences { get; set; }

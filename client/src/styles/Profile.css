@@ -111,5 +111,230 @@
   font-style: italic;
 }
 
+:root {
+  --accent-red: #cc0f0f;
+}
+
+/* === Updated Headers === */
+.profile-sidebar h4,
+.profile-left h3 {
+  color: var(--accent-red);
+  position: relative;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--accent-red);
+  display: inline-block;
+}
+
+/* === Red Icons === */
+.sidebar-section label svg {
+  color: var(--accent-red);
+  margin-right: 6px;
+}
+
+/* === Red Bullets === */
+.profile-left ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.profile-left ul li::before {
+  content: '•';
+  color: var(--accent-red);
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+  font-weight: bold;
+}
+
+/* === Optional: Make experience/education lists consistent in spacing */
+.profile-left ul li {
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.lineBtn {
+  align-items: center;
+  background-color: transparent;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: uppercase;
+  outline: 0;
+  border: 0;
+  padding: 1rem;
+}
+
+.lineBtn:before {
+  background-color: #cc0f0f;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  margin-right: 10px;
+  transition: all .42s cubic-bezier(.25,.8,.25,1);
+  width: 0;
+}
+
+.lineBtn:hover:before {
+  background-color: #cc0f0f;
+  width: 3rem;
+}
+
+.roundBtn {
+  background: transparent;
+  position: relative;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #cc0f0f;
+  border-radius: 25px;
+  outline: none;
+  overflow: hidden;
+  color: #cc0f0f;
+  transition: color 0.3s 0.1s ease-out;
+  text-align: center;
+}
+
+.roundBtn span {
+  margin: 10px;
+}
+
+.roundBtn::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  content: '';
+  border-radius: 50%;
+  display: block;
+  width: 20em;
+  height: 20em;
+  left: -5em;
+  text-align: center;
+  transition: box-shadow 0.5s ease-out;
+  z-index: -1;
+}
+
+.roundBtn:hover {
+  color: #fff;
+  border: 1px solid #cc0f0f;
+}
+
+.roundBtn:hover::before {
+  box-shadow: inset 0 0 0 10em #cc0f0f;
+}
+
+
+.cancelBtn {
+  background: transparent;
+  position: relative;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgb(3, 3, 3);
+  border-radius: 25px;
+  outline: none;
+  overflow: hidden;
+  color: rgb(3, 3, 3);
+  transition: color 0.3s 0.1s ease-out;
+  text-align: center;
+}
+
+.cancelBtn span {
+  margin: 10px;
+}
+
+.cancelBtn::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  content: '';
+  border-radius: 50%;
+  display: block;
+  width: 20em;
+  height: 20em;
+  left: -5em;
+  text-align: center;
+  transition: box-shadow 0.5s ease-out;
+  z-index: -1;
+}
+
+.cancelBtn:hover {
+  color: #fff;
+  border: 1px solid rgb(3, 3, 3);
+}
+
+.cancelBtn:hover::before {
+  box-shadow: inset 0 0 0 10em rgb(3, 3, 3);
+}
+
+.saveBtn {
+  background: transparent;
+  position: relative;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgba(62, 167, 13, 0.829);
+  border-radius: 25px;
+  outline: none;
+  overflow: hidden;
+  color: rgba(62, 167, 13, 0.829);
+  transition: color 0.3s 0.1s ease-out;
+  text-align: center;
+}
+
+.saveBtn span {
+  margin: 10px;
+}
+
+.saveBtn::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  content: '';
+  border-radius: 50%;
+  display: block;
+  width: 20em;
+  height: 20em;
+  left: -5em;
+  text-align: center;
+  transition: box-shadow 0.5s ease-out;
+  z-index: -1;
+}
+
+.saveBtn:hover {
+  color: #fff;
+  border: 1px solid rgba(62, 167, 13, 0.829);
+}
+
+.saveBtn:hover::before {
+  box-shadow: inset 0 0 0 10em rgba(62, 167, 13, 0.829);
+}
+
 
 

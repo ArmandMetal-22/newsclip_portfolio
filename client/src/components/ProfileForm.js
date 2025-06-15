@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ExperienceFormModal from './ExperienceFormModal';
 import EducationFormModal from './EducationFormModal';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa';
 import '../styles/Profile.css';
 
 const monthToNumber = (month) => {
@@ -16,10 +16,13 @@ const ProfileForm = () => {
   const [profile, setProfile] = useState({
     name: initial.name || '',
     email: initial.email || '',
+    headline: initial.headline || '',
+    location: initial.location || '',
     linkedin: initial.linkedin || '',
     github: initial.github || '',
+    website: initial.github || '',
     summary: initial.summary || '',
-    experience: '',
+    phone: initial.phone || '',
   });
 
   const [skills, setSkills] = useState([]);
@@ -79,27 +82,20 @@ const ProfileForm = () => {
       <div className="profile-left">
         {/* Profile Header with Edit Controls */}
         <div className="profile-header">
-          <img
-            src="https://bootdey.com/img/Content/avatar/avatar3.png"
-            alt="Profile"
-            className="profile-avatar"
-          />
+          <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Profile" className="profile-avatar"/>
           <div style={{ flex: 1 }}>
             <h2 style={{ margin: 0 }}>{profile.name || 'Your Name'}</h2>
-            <p style={{ margin: 0, color: 'gray' }}>{profile.email || 'Your Email'}</p>
+            <p style={{ margin: 0, color: 'gray' }}>{profile.headline || 'Your Headline'}</p>
+            <p style={{ margin: 0, fontSize: '0.9em', color: '#666' }}>{profile.location}</p>
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
-            {!isEditing && (
-              <button className='editBtn full-rounded' onClick={() => setIsEditing(true)} style={{ padding: '5px 10px' }}>
-                Edit
-              </button>
-            )}
+            {!isEditing && <button className='lineBtn' onClick={() => setIsEditing(true)}>Edit</button>}
             {isEditing && (
               <>
-                <button onClick={handleSave} style={{ padding: '5px 10px' }}>
+                <button className="saveBtn" onClick={handleSave} style={{ padding: '5px 10px' }}>
                   Save
                 </button>
-                <button onClick={() => setIsEditing(false)} style={{ padding: '5px 10px' }}>
+                <button className="cancelBtn" onClick={() => setIsEditing(false)} style={{ padding: '5px 10px' }}>
                   Cancel
                 </button>
               </>
@@ -107,23 +103,18 @@ const ProfileForm = () => {
           </div>
         </div>
 
-        <input
-          name="name"
-          placeholder="Name"
-          value={profile.name}
-          onChange={handleChange}
-          readOnly={!isEditing}
-        />
-        <br />
-        <input
-          name="email"
-          placeholder="Email"
-          value={profile.email}
-          onChange={handleChange}
-          readOnly={!isEditing}
-        />
-        <br />
-        <textarea
+        {['name', 'headline', 'location', 'email', 'phone'].map((field) => (
+          <input
+            key={field}
+            name={field}
+            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            value={profile[field]}
+            onChange={handleChange}
+            readOnly={!isEditing}
+          />
+        ))}
+
+        <textarea 
           name="summary"
           className="profile-summary"
           placeholder="Tell us about yourself..."
@@ -135,11 +126,7 @@ const ProfileForm = () => {
         {/* Tab Navigation */}
         <div className="tab-nav">
           {['skills', 'experience', 'education'].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-            >
+            <button key={tab} onClick={() => setActiveTab(tab)} className={`tab-button ${activeTab === tab ? 'active' : ''}`}>
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
@@ -148,7 +135,7 @@ const ProfileForm = () => {
         {/* Skills Section */}
         {activeTab === 'skills' && (
           <div>
-            <strong>Skills:</strong>
+            <h3>Skills</h3>
             {isEditing && (
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '8px' }}>
                 <input
@@ -158,11 +145,11 @@ const ProfileForm = () => {
                   onChange={(e) => setSkillInput(e.target.value)}
                   style={{ width: '200px', padding: '6px' }}
                 />
-                <button type="button" onClick={handleAddSkill}>
+                <button className="roundBtn" type="button" onClick={handleAddSkill}>
                   Add Skill
                 </button>
-              </div>
-            )}
+              </div>    
+            )} 
             <div className="skills-container" style={{ marginTop: '10px' }}>
               {skills.map((skill, index) => (
                 <span
@@ -182,9 +169,9 @@ const ProfileForm = () => {
         {/* Experience Section */}
         {activeTab === 'experience' && (
           <div>
-            <h3>Experiences</h3>
+            <h3>Experience</h3>
             {isEditing && (
-              <button type="button" onClick={() => setShowModal(true)}>
+              <button type="button" className="roundBtn" onClick={() => setShowModal(true)}>
                 Add Experience
               </button>
             )}
@@ -227,7 +214,7 @@ const ProfileForm = () => {
           <div>
             <h3>Education</h3>
             {isEditing && (
-              <button type="button" onClick={() => setShowEduModal(true)}>
+              <button type="button" className="roundBtn" onClick={() => setShowEduModal(true)}>
                 Add Education
               </button>
             )}
@@ -270,35 +257,18 @@ const ProfileForm = () => {
         <h4>Links</h4>
 
         <div className="sidebar-section">
-          <label htmlFor="linkedin" className="sidebar-label">
-            LinkedIn:
-          </label>
-          <input
-            type="text"
-            id="linkedin"
-            name="linkedin"
-            className="sidebar-input"
-            placeholder="https://linkedin.com/in/..."
-            value={profile.linkedin}
-            onChange={handleChange}
-            readOnly={!isEditing}
-          />
+          <label><FaLinkedin /> LinkedIn:</label>
+          <input name="linkedin" value={profile.linkedin} onChange={handleChange} readOnly={!isEditing} placeholder="https://linkedin.com/in/..." />
         </div>
 
         <div className="sidebar-section">
-          <label htmlFor="github" className="sidebar-label">
-            GitHub:
-          </label>
-          <input
-            type="text"
-            id="github"
-            name="github"
-            className="sidebar-input"
-            placeholder="https://github.com/..."
-            value={profile.github}
-            onChange={handleChange}
-            readOnly={!isEditing}
-          />
+          <label><FaGithub /> GitHub:</label>
+          <input name="github" value={profile.github} onChange={handleChange} readOnly={!isEditing} placeholder="https://github.com/..." />
+        </div>
+
+        <div className="sidebar-section">
+          <label><FaGlobe /> Website:</label>
+          <input name="website" value={profile.website} onChange={handleChange} readOnly={!isEditing} placeholder="https://yourportfolio.com" />
         </div>
 
         <div className="sidebar-section">
